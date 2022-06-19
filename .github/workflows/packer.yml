@@ -68,5 +68,6 @@ jobs:
       #  env:
       #    PACKER_LOG: 1
      
-      - name: Packer build
+      - name: Packer workaround build
         run: PACKER_LOG=1 packer build -color=false -on-error=abort .
+        working-directory: infrastructure/packer
