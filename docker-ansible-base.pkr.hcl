@@ -7,14 +7,14 @@ packer {
   }
 }
 
-source "docker" "packer" {
-  image  = "packer:3.16"
+source "docker" "alpine" {
+  image  = "alpine:3.16"
   commit = true
 }
 
 build {
-  name    = "learn-packer"
+  name    = "ansible-base"
   sources = [
-    "source.docker.ubuntu"
+    "source.docker.alpine"
   ]
 }
