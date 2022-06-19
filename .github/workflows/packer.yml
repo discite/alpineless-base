@@ -31,7 +31,7 @@ jobs:
       - name: Fix Template
         uses: hashicorp/packer-github-actions@master
         with:
-          command: fix
+          command: fmt
       
       # validate templates
       - name: Validate Template
