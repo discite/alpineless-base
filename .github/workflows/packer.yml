@@ -41,6 +41,11 @@ jobs:
           arguments: -syntax-only
           target: docker-ansible-base.pkr.hcl
       
+      - name: Create building working directory
+        run: |
+          mkdir -p infrastructure/packer
+          ls infrastructure/packer
+      
       # build artifact
       - name: Build Artifact
         uses: hashicorp/packer-github-actions@master
