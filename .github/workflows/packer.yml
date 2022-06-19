@@ -41,6 +41,9 @@ jobs:
           arguments: -syntax-only
           target: docker-ansible-base.pkr.hcl
       
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      
       - name: Create building working directory
         run: |
           mkdir -p infrastructure/packer && cp docker-ansible-base.pkr.hcl infrastructure/packer/
