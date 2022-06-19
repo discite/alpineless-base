@@ -8,7 +8,7 @@ on:
   push:
     branches: [ "development" ]
   pull_request:
-    branches: [ "certification" ,"production" ]
+    branches: [ "development", "certification", "production" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -79,3 +79,6 @@ jobs:
       - name: Packer workaround build
         run: PACKER_LOG=1 packer build -color=false -on-error=abort .
         working-directory: ./infrastructure/packer
+        
+      - name: List docker images build
+        run: docker image ls
