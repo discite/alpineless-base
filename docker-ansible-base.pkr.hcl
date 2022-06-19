@@ -17,9 +17,11 @@ build {
   sources = [
     "source.docker.alpine"
   ]
+  
+  post-processor "docker-tag" {
+    repository = "alpine-base/base"
+    tags = ["3.16"]
+  }
 }
 
-post-processor "docker-tag" {
-  repository = "alpine-base/base"
-  tags = ["3.16"]
-}
+
