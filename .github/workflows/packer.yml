@@ -46,16 +46,16 @@ jobs:
           mkdir -p infrastructure/packer && cp docker-ansible-base.pkr.hcl infrastructure/packer/
           ls infrastructure/packer
       
-      # build artifact
-      - name: Initialize Artifact
-        uses: hashicorp/packer-github-actions@master
-        with:
-          command: init
-          arguments: "-upgrade"
-          target: docker-ansible-base.pkr.hcl
-          working_directory: infrastructure/packer
-        env:
-          PACKER_LOG: 1
+      # initialize artifact
+      #- name: Initialize Artifact
+      #  uses: hashicorp/packer-github-actions@master
+      #  with:
+      #    command: init
+      #    arguments: "-upgrade"
+      #    target: docker-ansible-base.pkr.hcl
+      #    working_directory: infrastructure/packer
+      #  env:
+      #    PACKER_LOG: 1
       
       # build artifact (disabled temporary)
       #- name: Build Artifact
@@ -68,6 +68,14 @@ jobs:
       #  env:
       #    PACKER_LOG: 1
      
+      - name: list packer workaround working directory
+        run: ls .
+        working-directory: ./infrastructure/packer
+     
+      - name: Packer workaround init
+        run: PACKER_LOG=1 packer init .
+        working-directory: ./infrastructure/packer
+        
       - name: Packer workaround build
         run: PACKER_LOG=1 packer build -color=false -on-error=abort .
         working-directory: ./infrastructure/packer
