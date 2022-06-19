@@ -43,7 +43,7 @@ jobs:
       
       - name: Create building working directory
         run: |
-          mkdir -p infrastructure/packer && cp infrastructure/packer/docker-ansible-base.pkr.hcl
+          mkdir -p infrastructure/packer && cp docker-ansible-base.pkr.hcl infrastructure/packer/
           ls infrastructure/packer
       
       # build artifact
