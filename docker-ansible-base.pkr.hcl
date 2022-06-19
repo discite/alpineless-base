@@ -13,8 +13,13 @@ source "docker" "alpine" {
 }
 
 build {
-  name    = "ansible-base"
+  name    = "alpine-base"
   sources = [
     "source.docker.alpine"
   ]
+}
+
+post-processor "docker-tag" {
+  repository = "alpine-base/base"
+  tags = ["3.16"]
 }
