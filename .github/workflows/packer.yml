@@ -71,6 +71,16 @@ jobs:
       - name: list packer workaround working directory
         run: ls .
         working-directory: ./infrastructure/packer
+        
+      - name: Run Trivy vulnerability scanner in IaC mode
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'config'
+          hide-progress: false
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          severity: 'CRITICAL,HIGH'
      
       - name: Packer workaround init
         run: PACKER_LOG=1 packer init .
@@ -83,7 +93,7 @@ jobs:
       - name: List docker images build
         run: docker image ls
 
-      - name: Run Trivy vulnerability scanner
+      - name: Run Trivy vulnerability scanner in images
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: 'alpine-base/base:3.16'
