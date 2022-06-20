@@ -9,6 +9,8 @@ on:
     branches: [ "development" ]
   pull_request:
     branches: [ "development", "certification", "production" ]
+  schedule:
+    - cron: '29 6 * * 0'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -21,6 +23,9 @@ jobs:
     runs-on: ubuntu-latest
     # The name of the job
     name: packer
+    permissions:
+      contents: read # for actions/checkout to fetch code
+      security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -87,7 +92,9 @@ jobs:
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: 'alpine-base/base:3.16'
-          format: 'table'
+          format: 'template'
+          template: '@/contrib/sarif.tpl'
+          output: 'trivy-results.sarif'
           exit-code: '1'
           ignore-unfixed: true
           vuln-type: 'os,library'
