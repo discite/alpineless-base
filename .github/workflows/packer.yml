@@ -11,7 +11,6 @@ on:
     branches: [ "development", "certification", "production" ]
   schedule:
     - cron: '0 0 * * *'
-
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -105,7 +104,7 @@ jobs:
       - name: Run Trivy vulnerability scanner in images
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: 'alpine-base/base:3.16'
+          image-ref: 'distroless-alpine:${{ env.IMAGE_TAG }}'
           format: 'sarif'
           output: 'trivy-results.sarif'
           exit-code: '1'
