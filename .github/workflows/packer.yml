@@ -32,10 +32,9 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
       
-      - name: Set up Alpine version for docker
+      - name: Download Speculator results to get Alpine version
         run: |
-          echo "ALPINE=$(curl -s 'https://raw.githubusercontent.com/discite/speculator/main/results.json' | jq '.[] | ."alpine-base-image"')" >> $GITHUB_ENV
-          echo ${{ env.ALPINE }}
+          curl 'https://raw.githubusercontent.com/discite/speculator/main/results.json' --output results.json
 
       # fix backwards incompatibilities in template
       - name: Fix Template
@@ -53,7 +52,9 @@ jobs:
       
       - name: Create building working directory
         run: |
-          mkdir -p infrastructure/packer && cp docker-ansible-base.pkr.hcl infrastructure/packer/
+          mkdir -p infrastructure/packer
+          cp docker-ansible-base.pkr.hcl infrastructure/packer/
+          cp results.json infrastructure/packer/
           ls infrastructure/packer
       
       # initialize artifact
