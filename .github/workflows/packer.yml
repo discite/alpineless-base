@@ -10,7 +10,7 @@ on:
   pull_request:
     branches: [ "development", "certification", "production" ]
   schedule:
-    - cron: '29 6 * * 0'
+    - cron: '0 0 * * *'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -31,6 +31,10 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
+      
+      - name: Set up Alpine version for docker
+        run: 
+          export ALPINE=$(curl -s 'https://raw.githubusercontent.com/discite/speculator/main/results.json' | jq '.[] | ."alpine-base-image"')
 
       # fix backwards incompatibilities in template
       - name: Fix Template
