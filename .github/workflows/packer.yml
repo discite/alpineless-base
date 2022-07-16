@@ -34,7 +34,7 @@ jobs:
       
       - name: Download Speculator results to get Alpine version
         run: |
-          curl 'https://raw.githubusercontent.com/discite/speculator/main/results.json' --output results.json
+          curl 'https://raw.githubusercontent.com/discite/speculator/main/results.json' --output results.auto.pkrvars.json
 
       # fix backwards incompatibilities in template
       - name: Fix Template
@@ -54,7 +54,7 @@ jobs:
         run: |
           mkdir -p infrastructure/packer
           cp docker-ansible-base.pkr.hcl infrastructure/packer/
-          cp results.json infrastructure/packer/
+          cp results.auto.pkrvars.json infrastructure/packer/
           ls infrastructure/packer
       
       # initialize artifact
