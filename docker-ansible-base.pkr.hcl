@@ -33,6 +33,13 @@ build {
     repository = "${var.alpine-name-image}"
     tags = ["${var.alpine-base-image}"]
   }
+   post-processor "shell-local" {
+    environment_vars = [
+      'GITHUB_ENV="NAME_IMAGE=${var.alpine-name-image}"'
+      'GITHUB_ENV="TAG_IMAGE=${var.alpine-base-image}"'
+    ]
+    inline = [echo "NAME_IMAGE"]
+  }
 }
 
 
