@@ -8,7 +8,7 @@ packer {
 }
 
 source "docker" "alpine" {
-  image  = "alpine:3.16"
+  image  = "ghcr.io/distroless/alpine-base"
   commit = true
 }
 
