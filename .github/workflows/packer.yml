@@ -33,11 +33,15 @@ jobs:
       - uses: actions/checkout@v3
       
       - name: Download Speculator results to get Alpine version
-        run: |
+        run:
           curl 'https://raw.githubusercontent.com/discite/speculator/main/results.json' --output results.auto.pkrvars.json
-          echo "IMAGE_NAME=$(jq '."alpine-base-image"' results.auto.pkrvars.json)" >> $GITHUB_ENV
+          
+      - name: Obtain Image Tag
+        run:
           echo "IMAGE_TAG=$(jq '."alpine-base-image"' results.auto.pkrvars.json)" >> $GITHUB_ENV
-          echo $IMAGE_NAME
+          
+      - name: Print Image Tag
+        run:
           echo $IMAGE_TAG
 
       # fix backwards incompatibilities in template
