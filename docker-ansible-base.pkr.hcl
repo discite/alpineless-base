@@ -7,6 +7,17 @@ packer {
   }
 }
 
+variable "alpine-base-image" {
+  type        = string
+  description = "The String version of the base edge image where alpine will be build"
+}
+
+variable "alpine-name-image" {
+  type        = string
+  description = "The String name of the base edge image"
+  default = "distroless-alpine"
+}
+
 source "docker" "alpine" {
   image  = "ghcr.io/distroless/alpine-base"
   commit = true
@@ -19,8 +30,8 @@ build {
   ]
   
   post-processor "docker-tag" {
-    repository = "alpine-base/base"
-    tags = ["3.16"]
+    repository = "${var.alpine-name-image}"
+    tags = ["${var.alpine-base-image}"]
   }
 }
 
