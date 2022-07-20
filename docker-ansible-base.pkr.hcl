@@ -31,7 +31,7 @@ build {
 
   post-processor "docker-tag" {
     repository = "${var.alpine-name-image}"
-    tags = ["${var.alpine-base-image}"]
+    tags = ["${var.alpine-base-image}","latest"]
   }
 }
 
